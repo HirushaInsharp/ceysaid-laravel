@@ -8,10 +8,13 @@ use App\Http\Requests\Admin\UpdateTourRequest;
 use App\Http\Resources\TourResource;
 use App\Models\Country;
 use App\Models\Tour;
+use App\Models\TourData;
+use App\Models\TourDataGroup;
 use App\Models\TourDay;
 use App\Models\TourMedia;
 use App\Models\TourPrice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -64,7 +67,7 @@ class TourController extends Controller
     {
         $slug = Str::slug($request->name . "-". $request->days . "-days");
 
-        $tour = $this->repository->create([
+        $tour = Tour::create([
             'name' => $request->name,
             'slug' => $slug,
             'main_destinations' => $request->main_destinations,
@@ -199,10 +202,58 @@ class TourController extends Controller
                 $tour->tourPrice()->save($tourPrice);
             }
             Session::flash('success', "Tour :: " . $tour->name . " price data has been updated successfully.");
+        } else if ($request->get('edit_type') == 'include') {
+            $this->tourData($request, $tour, TourDataGroup::PRICE_INCLUDE);
+            Session::flash('success', "Tour :: " . $tour->name . "  tour include data has been updated successfully.");
+        } else if ($request->get('edit_type') == 'exclude') {
+            $this->tourData($request, $tour, TourDataGroup::PRICE_EXCLUDE);
+            Session::flash('success', "Tour :: " . $tour->name . "  tour exclude data has been updated successfully.");
         }
 
         Session::flash('edit_type', $request->get('edit_type'));
         return redirect()->back();
+    }
+
+    private function tourData($request, $tour, $section)
+    {
+        $groups = $request->get('groups') ?? [];
+        $groupIds = $request->get('group_ids') ?? [];
+        $groupId = 1;
+
+        TourDataGroup::whereNotIn('id', $groupIds)->where('section', $section)->delete();
+
+        for ($i = 0; $i < count($groups); $i++) {
+
+            if (isset($groupIds[$i])) {
+                $tourDataGroup = TourDataGroup::find($groupIds[$i]);
+            } else {
+                $tourDataGroup = new TourDataGroup();
+                $tourDataGroup->section = $section;
+                $tourDataGroup->tour_id = $tour->id;
+            }
+            $tourDataGroup->name = $groups[$i];
+            $tourDataGroup->save();
+
+            $itemIds = $request->get('item_ids_' . $groupId) ?? [];
+            $items = $request->get('items_' . $groupId) ?? [];
+
+            for ($x = 0; $x < count($itemIds); $x++) {
+                $tourData = TourData::find($itemIds[$x]);
+                $tourData->item = $items[$x];
+                $tourData->tour_data_group_id = $tourDataGroup->id;
+                $tourData->save();
+            }
+            TourData::whereNotIn('id', $itemIds)->where('tour_data_group_id', $tourDataGroup->id)->delete();
+
+            for ($j = $x; $j < count($items); $j++) {
+                $tourData = new TourData();
+                $tourData->item = $items[$j];
+                $tourData->tour_data_group_id = $tourDataGroup->id;
+                $tourData->save();
+            }
+
+            $groupId += 100;
+        }
     }
 
     private function tourDays($tour, $days)

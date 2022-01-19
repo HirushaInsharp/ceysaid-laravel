@@ -48,6 +48,11 @@ class Tour extends Model
         return $this->hasMany(TourPrice::class);
     }
 
+    public function tourDataGroup()
+    {
+        return $this->hasMany(TourDataGroup::class);
+    }
+
     public function getFeaturedImageUrlAttribute()
     {
         $image = $this->tourMedia->where('type', TourMedia::TYPE_FEATURE_IMAGE)->first();
@@ -64,5 +69,15 @@ class Tour extends Model
     {
         $tourPrice =  $this->tourPrice->where('code', $code)->first();
         return $tourPrice;
+    }
+
+    public function getTourInclude()
+    {
+        return $this->tourDataGroup->where('section', TourDataGroup::PRICE_INCLUDE);
+    }
+
+    public function getTourExclude()
+    {
+        return $this->tourDataGroup->where('section', TourDataGroup::PRICE_EXCLUDE);
     }
 }
