@@ -18,6 +18,7 @@ class CreateToursTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('slug', 150);
+            $table->integer('days')->default(1);
             $table->string('main_destinations', 255);
             $table->text('description')->nullable();
             $table->longText('context')->nullable();

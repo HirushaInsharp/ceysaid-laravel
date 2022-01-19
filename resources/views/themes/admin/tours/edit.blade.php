@@ -44,6 +44,9 @@
                             <li class="nav-item">
                                 <a class="nav-link @if($editType == 'price') active @endif" id="price-tab" data-toggle="tab" href="#price" aria-controls="price" role="tab" aria-selected="false">Price</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if($editType == 'include' || $editType == 'exclude') active @endif" id="include-exclude-tab" data-toggle="tab" href="#include-exclude" aria-controls="include-exclude" role="tab" aria-selected="false">Include & Exclude</a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane @if(empty($editType) || $editType == 'info') active @endif" id="info" aria-labelledby="info-tab" role="tabpanel">
@@ -250,6 +253,68 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
+                            <div class="tab-pane @if($editType == 'include' || $editType == 'exclude') active @endif" id="include-exclude" role="tabpanel" aria-labelledby="include-exclude-tab">
+                                <div class="input-group mb-1 include-exclude-row" id="base-rows" style="display: none">
+                                    <input type="text" name="includes[]" class="form-control input-text" placeholder="Add Items" aria-describedby="button-addon2">
+                                    <div class="input-group-append" id="button-addon2">
+                                        <button class="btn btn-danger waves-effect waves-light inclide-remove" onclick="return removeRows(this)" type="button">-</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-6 group" id="section-card" style="display: none">
+                                    <div class=" card border-info bg-transparent">
+                                        <div class="card-content d-flex">
+                                            <div class="card-body">
+                                                <div class="input-group mb-1 include-row">
+                                                    <input type="text" name="groups[]" class="form-control" placeholder="Group name" aria-describedby="button-addon2">
+                                                    <div class="input-group-append" id="button-addon2">
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-success add-new-row" data-id="1" onclick="return addNewRow(this)">Add New Row</button>
+                                                <button type="button" class="btn btn-danger remove-group" data-id="1" onclick="return removeGroup(this)">Remove Group</button>
+                                                <div class="item-section mt-2">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="nav nav-tabs nav-fill" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link @if(empty($editType) || $editType == 'include') active @endif" id="include-tab" data-toggle="tab" href="#include" aria-controls="include" role="tab" aria-selected="true">Includes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @if($editType == 'exclude') active @endif" id="exclude-tab" data-toggle="tab" href="#exclude" aria-controls="exclude" role="tab" aria-selected="false">Excludes</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane @if(empty($editType) || $editType == 'include') active @endif" id="include" aria-labelledby="include-tab" role="tabpanel">
+                                        <form method="POST" action="{{ route('admin.tours.update', [ $tour->id]) }}" class="form-horizontal" novalidate>
+                                            @method('PUT')
+                                            @csrf
+                                            <input type="hidden" name="edit_type" value="include" />
+                                            @php
+                                                $groups = $tour->getTourInclude();
+                                                $tag = 'includes';
+                                            @endphp
+                                            @include('themes.admin.partials.tour-data')
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane @if($editType == 'exclude') active @endif" id="exclude" aria-labelledby="exclude-tab" role="tabpanel">
+                                        <form method="POST" action="{{ route('admin.tours.update', [ $tour->id]) }}" class="form-horizontal" novalidate>
+                                            @method('PUT')
+                                            @csrf
+                                            <input type="hidden" name="edit_type" value="exclude" />
+                                            @php
+                                                $groups = $tour->getTourExclude();
+                                                $tag = 'excludes';
+                                            @endphp
+                                            @include('themes.admin.partials.tour-data')
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -278,7 +343,63 @@
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
+
+        $('.add-includes-group').on('click', function () {
+            var lastAddNewButtonId = $('#includes-cards').children().last().find('.add-new-row').data('id');
+            lastAddNewButtonId += 100;
+            var btn = $('#section-card').children().find('.add-new-row').attr('data-id', lastAddNewButtonId);
+            $('#section-card').children().find('.add-new-row').attr('data-type', 'includes');
+            $('#section-card').children().find('.remove-group').attr('data-type', 'includes');
+            var section = $('#section-card').children().find('.card-body').find('.item-section').attr('id', 'section-includes-' + lastAddNewButtonId);
+            var inputGroup = $("#section-card").clone().removeAttr('id').removeAttr("style");
+            $('#section-card').children().find('.add-new-row').removeAttr('data-id');
+            $('#section-card').children().find('.add-new-row').removeAttr('data-type');
+            $('#section-card').children().find('.card-body').find('.item-section').removeAttr('id');
+            $('#includes-cards').append(inputGroup);
+            $('#includes-cards').children().find('.remove-group').css('display', 'inline');
+        });
+
+        $('.add-excludes-group').on('click', function () {
+            var lastAddNewButtonId = $('#excludes-cards').children().last().find('.add-new-row').data('id');
+            lastAddNewButtonId += 100;
+            var btn = $('#section-card').children().find('.add-new-row').attr('data-id', lastAddNewButtonId);
+            $('#section-card').children().find('.add-new-row').attr('data-type', 'excludes');
+            $('#section-card').children().find('.remove-group').attr('data-type', 'excludes');
+            var section = $('#section-card').children().find('.card-body').find('.item-section').attr('id', 'section-excludes-' + lastAddNewButtonId);
+            var inputGroup = $("#section-card").clone().removeAttr('id').removeAttr("style");
+            $('#section-card').children().find('.add-new-row').removeAttr('data-id');
+            $('#section-card').children().find('.add-new-row').removeAttr('data-type');
+            $('#section-card').children().find('.card-body').find('.item-section').removeAttr('id');
+            $('#excludes-cards').append(inputGroup);
+            $('#excludes-cards').children().find('.remove-group').css('display', 'inline');
+        });
     });
+
+    function addNewRow(e) {
+        var id = $(e).data('id');
+        var type = $(e).data('type');
+        var name = "items_" + id + "[]";
+        $("#base-rows .input-text").attr('name', name);
+        var addRow = $("#base-rows").clone().removeAttr("id").removeAttr("style");
+        $("#base-rows .input-text").removeAttr('name');
+        $('#section-' + type + '-' + id).append(addRow);
+    }
+
+    function removeRows(e) {
+        e.closest('.include-exclude-row').remove();
+    }
+
+    function removeGroup(e)
+    {
+        var type = $(e).data('type');
+        e.closest('.group').remove();
+        var length = $('#' + type + '-cards').children().length;
+
+        if (length == 1) {
+            $('#' + type + '-cards').children().find('.remove-group').css('display', 'none');
+        }
+
+    }
 </script>
 @endpush
 @stop
