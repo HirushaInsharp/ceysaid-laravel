@@ -28,7 +28,7 @@ class UpdateTourRequest extends FormRequest
             return [
                 'name' => 'required|string|max:100',
                 'slug' => 'required',
-                'country_id' => 'required|integer',
+                'country_id' => 'required|integer|exists:countries,id',
                 'days' => 'required|integer',
                 'main_destinations' => 'required|string',
                 'description' => 'nullable|string',

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Country;
+use App\Models\Page;
+use App\Models\Testimonial;
 use App\Models\Tour;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -59,8 +61,12 @@ class RouteServiceProvider extends ServiceProvider
             return Tour::find($id);
         });
 
-        Route::bind('administrator/images', function ($id) {
-            return Tour::find($id);
+        Route::bind('administrator/pages', function ($id) {
+            return Page::find($id);
+        });
+
+        Route::bind('administrator/testimonials', function ($id) {
+            return Testimonial::find($id);
         });
     }
 

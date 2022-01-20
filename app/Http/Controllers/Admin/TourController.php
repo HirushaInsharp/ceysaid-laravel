@@ -150,7 +150,7 @@ class TourController extends Controller
                 'status' => $status
             ]);
             Session::flash('success', "Tour :: " . $tour->name . " status has been updated successfully.");
-        } elseif ($request->get('edit_type') == 'featured' || $request->get('edit_type') == 'background') {
+        } elseif ($request->get('edit_type') == 'featured' || $request->get('edit_type') == 'background' || $request->get('edit_type') == 'pdf') {
             if ($request->hasFile('featured_image')) {
                 $file = $request->file('featured_image');
                 $this->removeExistingFile($tour->featured_image_url);
@@ -165,6 +165,13 @@ class TourController extends Controller
                 Session::flash('success', "Tour :: " . $tour->name . " background image has been uploaded successfully.");
             }
 
+            if ($request->hasFile('pdf')) {
+                $file = $request->file('pdf');
+                $this->removeExistingFile($tour->pdf_url);
+                $this->fileUpload($file, $tour, TourMedia::TYPE_TOUR_PDF);
+                Session::flash('success', "Tour :: " . $tour->name . " pdf file has been uploaded successfully.");
+            }
+
             if ($request->remove_featured_image) {
                 $this->removeExistingFile($tour->featured_image_url);
                 Session::flash('success', "Tour :: " . $tour->name . " featured image has been deleted successfully.");
@@ -175,6 +182,21 @@ class TourController extends Controller
                 $this->removeExistingFile($tour->background_image_url);
                 Session::flash('success', "Tour :: " . $tour->name . " background image has been deleted successfully.");
                 $tour->tourMedia()->where('type', TourMedia::TYPE_BACKGROUND_IMAGE)->delete();
+            }
+
+            if ($request->remove_pdf) {
+                $this->removeExistingFile($tour->pdf_url);
+                Session::flash('success', "Tour :: " . $tour->name . " pdf has been deleted successfully.");
+                $tour->tourMedia()->where('type', TourMedia::TYPE_TOUR_PDF)->delete();
+            }
+            if ($request->download_pdf) {
+                $headers = array(
+                    'Content-Type: application/pdf',
+                    'Content-Type: application/docx',
+                );
+                $file = explode('/', $tour->pdf_url);
+                $fileName = $file[count($file) - 1];
+                return Storage::disk('public')->download($tour->pdf_url, $fileName, $headers);
             }
         } elseif ($request->get('edit_type') == 'tour_days') {
             $title = $request->title;

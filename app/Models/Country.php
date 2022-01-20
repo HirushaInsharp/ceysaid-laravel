@@ -19,11 +19,9 @@ class Country extends Model
         'name',
         'slug',
         'description',
-        'featured_image_url',
         'status',
         'meta_keywords',
         'meta_description',
-        'background_image_url',
         'user_id'
     ];
 

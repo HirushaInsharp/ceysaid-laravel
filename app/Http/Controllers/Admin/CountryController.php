@@ -58,7 +58,7 @@ class CountryController extends Controller
      */
     public function store(StoreCountryRequest $request)
     {
-        $country = $this->repository->create([
+        $country = Country::create([
             'name' => $request->name,
             'description' => $request->description,
             'user_id' => auth('admin')->user()->id
@@ -117,7 +117,7 @@ class CountryController extends Controller
                 'meta_keywords' => $request->meta_keywords,
                 'meta_description' => $request->meta_description
             ]);
-            Session::flash('success', "Country seo has been updated successfully.");
+            Session::flash('success', "Country :: " . $country->name . " seo has been updated successfully.");
         } elseif ($request->get('edit_type') == 'status') {
             $status = ($country->status == Country::STATUS_INACTIVE) ? Country::STATUS_ACTIVE : Country::STATUS_INACTIVE;
 

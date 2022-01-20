@@ -144,13 +144,16 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
-                            <div class="tab-pane @if($editType == 'featured' || $editType == 'background')) active @endif" id="media" aria-labelledby="media-tab" role="tabpanel">
+                            <div class="tab-pane @if($editType == 'featured' || $editType == 'background' || $editType == 'pdf')) active @endif" id="media" aria-labelledby="media-tab" role="tabpanel">
                                 <ul class="nav nav-tabs nav-fill" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link @if(empty($editType) || $editType == 'featured') active @endif" id="featured-tab" data-toggle="tab" href="#featured" aria-controls="featured" role="tab" aria-selected="true">Featured Image</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link @if($editType == 'background') active @endif" id="background-tab" data-toggle="tab" href="#background" aria-controls="background" role="tab" aria-selected="false">Background Image</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @if($editType == 'pdf') active @endif" id="pdf-tab" data-toggle="tab" href="#pdf" aria-controls="background" role="tab" aria-selected="false">PDF</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
@@ -199,6 +202,33 @@
                                                     <input type="hidden" name="edit_type" value="background" />
                                                     <input type="hidden" name="remove_background_image" value="1" />
                                                     <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="tab-pane @if($editType == 'pdf') active @endif" id="pdf" role="tabpanel" aria-labelledby="pdf-tab">
+                                        <form method="POST" action="{{ route('admin.tours.update', [ $tour->id]) }}" enctype="multipart/form-data">
+                                            @method('PUT')
+                                            @csrf
+                                            <input type="hidden" name="edit_type" value="pdf" />
+                                            <input type="file" name="pdf" />
+                                            <button type="submit" class="btn btn-primary" id="background-image-upload-btn">Upload</button>
+                                        </form>
+                                        @if(Storage::disk('public')->exists($tour->pdf_url))
+                                        <div class="row">
+                                            <div class="col-md-12 mt-3">
+                                                <span class="feather icon-file-text" style="font-size: 300px"></span>
+                                            </div>
+                                            <div class="col-md-12 mt-1">
+                                                <form method="POST" action="{{ route('admin.tours.update', [ $tour->id]) }}" id="pdf-update-form">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <input type="hidden" name="edit_type" value="pdf" />
+                                                    <input type="hidden" name="remove_pdf" id="remove_pdf" value="1" />
+                                                    <input type="hidden" name="download_pdf" id="download_pdf" value="0" />
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <button type="submit" class="btn btn-success" id="download-pdf">Download</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -344,6 +374,12 @@
             ]
         });
 
+        $('#download-pdf').on('click', function (e) {
+            e.preventDefault();
+            $('#remove_pdf').val(0);
+            $('#download_pdf').val(1);
+            $('#pdf-update-form').submit();
+        });
         $('.add-includes-group').on('click', function () {
             var lastAddNewButtonId = $('#includes-cards').children().last().find('.add-new-row').data('id');
             lastAddNewButtonId += 100;
