@@ -53,6 +53,11 @@ class Tour extends Model
         return $this->hasMany(TourDataGroup::class);
     }
 
+    public function Testimonials()
+    {
+        return $this->hasMany(Testimonial::class);
+    }
+
     public function getFeaturedImageUrlAttribute()
     {
         $image = $this->tourMedia->where('type', TourMedia::TYPE_FEATURE_IMAGE)->first();
@@ -63,6 +68,12 @@ class Tour extends Model
     {
         $image = $this->tourMedia->where('type', TourMedia::TYPE_BACKGROUND_IMAGE)->first();
         return ($image) ? $image->image_path : null;
+    }
+
+    public function getPdfUrlAttribute()
+    {
+        $pdf = $this->tourMedia->where('type', TourMedia::TYPE_TOUR_PDF)->first();
+        return ($pdf) ? $pdf->image_path : null;
     }
 
     public function getPrice($code)

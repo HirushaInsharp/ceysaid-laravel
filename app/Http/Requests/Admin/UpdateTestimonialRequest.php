@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTourRequest extends FormRequest
+class UpdateTestimonialRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,13 @@ class StoreTourRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string|max:100',
-            'country_id' => 'required|integer|exists:countries,id',
-            'days' => 'required|integer',
-            'main_destinations' => 'required|string',
-            'description' => 'nullable|string'
-        ];
+        if ($this->request->get('edit_type') == 'info') {
+            return [
+                'name' => 'required|string|max:100',
+                'testimonial' => 'required|string',
+                'tour_id' => 'required|integer|exists:tours,id'
+            ];
+        }
+        return [];
     }
 }

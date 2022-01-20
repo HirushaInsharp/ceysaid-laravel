@@ -22,6 +22,9 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item @if(Str::contains($currentRouteName, 'admin.pages.')) active @endif">
+                <a href="{{ route('admin.pages.index') }}"><i class="feather icon-file-text"></i><span class="menu-title">Pages</span></a>
+            </li>
             <li class=" navigation-header"><span>Tour Management</span>
             </li>
             <li class="nav-item @if(Str::contains($currentRouteName, 'admin.countries.')) active @endif">
@@ -29,6 +32,14 @@
             </li>
             <li class="nav-item @if(Str::contains($currentRouteName, 'admin.tours.')) active @endif">
                 <a href="{{ route('admin.tours.index') }}"><i class="feather icon-map-pin"></i><span class="menu-title">Tours</span></a>
+            </li>
+            <li class="nav-item @if(Str::contains($currentRouteName, 'admin.testimonials.')) active @endif">
+                <a href="{{ route('admin.testimonials.index') }}"><i class="feather icon-message-square"></i><span class="menu-title">Testimonials</span></a>
+            </li>
+            <li class=" navigation-header"><span>Settings</span>
+            </li>
+            <li class="nav-item @if(Str::contains($currentRouteName, 'admin.setting.')) active @endif">
+                <a href="{{ route('admin.setting') }}"><i class="feather icon-settings"></i><span class="menu-title">Setting</span></a>
             </li>
         </ul>
     </div>
