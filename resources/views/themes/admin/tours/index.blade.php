@@ -8,7 +8,7 @@
     </div>
     <div class="table-responsive">
         <!-- Data list view starts -->
-        <table class="table data-thumb-view display dataTable">
+        <table class="table data-thumb-view display dataTable" id="tour-table">
             <thead>
                 <tr>
                     <th>Image</th>
@@ -29,14 +29,13 @@
 <!-- Js start -->
 @push('admin-js')
     <script>
-        var dataThumbView = $(".data-thumb-view").DataTable({
-            "processing": true,
-            "serverSide": false,
-            "paging": true,
-            "pageLength": 4,
-            "aLengthMenu": [[4, 10, 15, 20], [4, 10, 15, 20]],
-            "ajax": { url: "{{ route('admin.tours.index')}}" },
-            "columns": [
+        var tourTable = $("#tour-table").ceysaidTable({
+            processing: true,
+            serverSide: true,
+            paging: true,
+            pageLength: 10,
+            url: "{{ route('admin.tours.index')}}",
+            columns: [
                 {
                     data: "featured_image_url",
                     class: "product-img",

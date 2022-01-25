@@ -20,8 +20,18 @@ class PageController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $page = Page::all();
-            return PageResource::collection($page);
+            $length = $request->length ?? 10;
+            $orderColumn = $request->order[0]['column'];
+            $orderDir = $request->order[0]['dir'] ?? 'ASC';
+            $searchValue = $request->search['value'] ?? null;
+
+            $page = Page::filterSearchValue(['name', 'status'], $searchValue)
+                        ->orderValue($orderColumn, $orderDir)
+                        ->paginate($length);
+
+            return PageResource::collection($page)->additional([
+                'draw' => $request->draw
+            ]);
         }
         $this->setTitle('Pages');
         $this->setBreadcrumbs([['name' => 'Pages', 'route' => null]]);

@@ -32,8 +32,18 @@ class TourController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $tours = Tour::all();
-            return TourResource::collection($tours);
+            $length = $request->length ?? 10;
+            $orderColumn = $request->order[0]['column'];
+            $orderDir = $request->order[0]['dir'] ?? 'ASC';
+            $searchValue = $request->search['value'] ?? null;
+
+            $tours = Tour::filterSearchValue(['name', 'status'], $searchValue)
+                            ->orderValue($orderColumn, $orderDir)
+                            ->paginate($length);
+
+            return TourResource::collection($tours)->additional([
+                'draw' => $request->draw
+            ]);
         }
         $this->setTitle('Tours');
         $this->setBreadcrumbs([['name' => 'Tours', 'route' => null]]);
