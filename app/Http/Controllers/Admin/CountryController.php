@@ -26,8 +26,18 @@ class CountryController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $countries = Country::get();
-            return CountryResource::collection($countries);
+            $length = $request->length ?? 10;
+            $orderColumn = $request->order[0]['column'];
+            $orderDir = $request->order[0]['dir'] ?? 'ASC';
+            $searchValue = $request->search['value'] ?? null;
+
+            $countries = Country::filterSearchValue(['name', 'status'], $searchValue)
+                                ->orderValue($orderColumn, $orderDir)
+                                ->paginate($length);
+
+            return CountryResource::collection($countries)->additional([
+                'draw' => $request->draw
+            ]);
         }
 
         $this->setTitle('Countries');

@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Traits\DataTableFilterTrait;
 
 class Country extends Model
 {
     use HasFactory;
+    use DataTableFilterTrait;
 
     public const STATUS_ACTIVE = 1;
     public const STATUS_INACTIVE = 0;
