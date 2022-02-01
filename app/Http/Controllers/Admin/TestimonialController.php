@@ -21,8 +21,18 @@ class TestimonialController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $testimornials = Testimonial::all();
-            return TestimonialResource::collection($testimornials);
+            $length = $request->length ?? 10;
+            $orderColumn = $request->order[0]['column'];
+            $orderDir = $request->order[0]['dir'] ?? 'ASC';
+            $searchValue = $request->search['value'] ?? null;
+
+            $testimornials = Testimonial::filterSearchValue(['name', 'status'], $searchValue)
+                                        ->orderValue($orderColumn, $orderDir)
+                                        ->paginate($length);
+
+            return TestimonialResource::collection($testimornials)->additional([
+                'draw' => $request->draw
+            ]);
         }
 
         $this->setTitle('Testimonial');
@@ -98,7 +108,7 @@ class TestimonialController extends Controller
             $testimonial->update([
                 'status' => $status
             ]);
-        } else if ($request->get('edit_type') == 'info') {
+        } elseif ($request->get('edit_type') == 'info') {
             $testimonial->update([
                 'name' => $request->name,
                 'testimonial' => $request->testimonial,

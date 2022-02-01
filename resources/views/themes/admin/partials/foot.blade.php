@@ -18,7 +18,7 @@
 <script src="{{ asset('admin-themes/js/base/form-validation.js') }}"></script>
 
 <script src="{{ asset('admin-themes/js/base/summernote.js') }}"></script>
-
+<script src="{{ asset('admin-themes/js/ceysaidTable.js') }}"></script>
 <script>
     $(window).on('load', function(){
         // PAGE IS FULLY LOADED
