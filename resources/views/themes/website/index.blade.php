@@ -12,7 +12,7 @@
 
             @foreach ($contries as $contry)
                 <div class="featured-item my-2 shadow">
-                    <a href="gallery.html">
+                    <a href="{{ route('tours',['country_slug' => $contry->slug])}}">
                         @if (count($contry->CountryMedia) == 0 )
                             <img src="{{ asset('themes/images/srilanka/galle.jpg') }}" alt="featured place">
                         @else
