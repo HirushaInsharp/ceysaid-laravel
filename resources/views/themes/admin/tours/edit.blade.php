@@ -577,6 +577,21 @@
                     $('#' + type + '-cards').children().find('.remove-group').css('display', 'none');
                 }
 
+                reArrangeGroups(type);
+            }
+
+            function reArrangeGroups(type) {
+                var rowId = 1;
+                $('#' + type + '-cards .group').each(function(index, item) {
+                    var id = 'section-' + type + '-' + rowId;
+                    $(this).children().find('.add-new-row').attr(
+                        'data-id', rowId);
+                    $(this).children().find('.remove-group').attr(
+                        'data-id', rowId);
+                    $(this).children().find('.item-section').attr(
+                        'id', id);
+                    rowId += 100;
+                }, rowId);
             }
         </script>
     @endpush
