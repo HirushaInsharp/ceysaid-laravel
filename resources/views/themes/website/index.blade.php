@@ -8,34 +8,30 @@
             <h2 class="lg-title">featured places</h2>
         </div>
 
-        <div class="featured-row">
-
-            @foreach ($contries as $contry)
-                <div class="featured-item my-2 shadow">
-                    <a href="{{ route('tours',['country_slug' => $contry->slug])}}">
-                        @if (count($contry->CountryMedia) == 0 )
-                            <img src="{{ asset('themes/images/srilanka/galle.jpg') }}" alt="featured place">
-                        @else
-                            <img src="{{ asset($contry->CountryMedia[0]->image_path) }}" alt="featured place">
-                        @endif
-                        
-                        <div class="featured-item-content">
+        <div class = "featured-row">
+            @foreach ($countries as $country)
+                @php
+                if (Storage::disk('public')->exists($country->featured_image_url)) {
+                    $featuredImageUrl = asset('storage/' . $country->featured_image_url);
+                } else {
+                    $featuredImageUrl = asset('themes/images/deafult-image.jpg');
+                }
+                @endphp
+                <div class = "featured-item my-2 shadow">
+                    <a href="{{ route('country', [$country->slug]) }}">
+                        <img src="{{ $featuredImageUrl }}" alt="{{ $country->name }}">
+                        <div class = "featured-item-content">
                             <span>
                                 <i class="fas fa-map-marker-alt"></i>
-                                {{$contry->name}}
+                                {{ $country->name }}
                             </span>
                             <div>
-                                @if ($contry->description == null )
-                                    <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                                @else
-                                <p class="text">{{$contry->description}}</p>
-                                @endif
+                                <p class = "text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
                             </div>
                         </div>
                     </a>
-                </div>     
+                </div>
             @endforeach
-                   
         </div>
     </div>
 </section>

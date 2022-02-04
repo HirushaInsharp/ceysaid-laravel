@@ -6,7 +6,11 @@
 <script src="{{ asset('admin-themes/js/base/datatables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('admin-themes/js/base/jqBootstrapValidation.js') }}"></script>
 <script src="{{ asset('admin-themes/js/base/prism.min.js') }}"></script>
-<script src="{{ asset('admin-themes/js/base/select2.full.min.js')}}"></script>
+<script src="{{ asset('admin-themes/js/base/select2.full.min.js') }}"></script>
+<script src="{{ asset('admin-themes/js/base/picker.js') }}"></script>
+<script src="{{ asset('admin-themes/js/base/picker.date.js') }}"></script>
+<script src="{{ asset('admin-themes/js/base/picker.time.js') }}"></script>
+<script src="{{ asset('admin-themes/js/base/legacy.js') }}"></script>
 <!-- END: Page Vendor JS-->
 
 <!-- BEGIN: Theme JS-->
@@ -20,7 +24,7 @@
 <script src="{{ asset('admin-themes/js/base/summernote.js') }}"></script>
 <script src="{{ asset('admin-themes/js/ceysaidTable.js') }}"></script>
 <script>
-    $(window).on('load', function(){
+    $(window).on('load', function() {
         // PAGE IS FULLY LOADED
         // FADE OUT YOUR OVERLAYING DIV
         $('#overlay').fadeOut();

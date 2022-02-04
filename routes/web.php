@@ -16,20 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', [HomeController::class, 'index']);
-Route::get('/', [CountryController::class, 'view']);
-// Route::get('countries', [HomeController::class, 'showCountries']);
-// //Route::get('country/{country_slug}/tours', [HomeController::class, 'showTours']);
-// Route::get('tours', [HomeController::class, 'showTours']);
-// //Route::get('country/{country_slug}/tour/{tour_slug}', [HomeController::class, 'showTour']);
-// Route::get('tour', [HomeController::class, 'showTour']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('country/{country_slug}', [CountryController::class, 'show'])->name('country');
+Route::get('country/{country_slug}/tour/{tour_slug}', [TourController::class, 'show'])->name('tour');
+//Route::get('/', [CountryController::class, 'view']);
 
+/*
 Route::get('/contries', [CountryController::class, 'view'])->name('contries');
 Route::get('country/{country_slug}/tours', [TourController::class, 'view'])->name('tours');
 Route::get('country/{country_slug}/tours/{tour_slug}', [TourController::class, 'viewSingleTour'])->name('tour');
-Route::get('data-table', function () {
-    return view('welcome');
-});
+*/
 require __DIR__.'/auth.php';
 
 require __DIR__.'/admin.php';

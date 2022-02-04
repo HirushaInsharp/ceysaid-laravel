@@ -27,7 +27,13 @@ class Tour extends Model
         'context',
         'days',
         'user_id',
-        'country_id'
+        'country_id',
+        'start_place',
+        'start_date',
+        'end_place',
+        'end_date',
+        'min_age',
+        'max_ppl'
     ];
 
     public function country()
