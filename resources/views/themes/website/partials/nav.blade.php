@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="container flex">
-        <a href="index.html" class="site-brand">
+        <a href="{{ route('home') }}" class="site-brand">
             CEY<span>S<span>A<span>I<span>D</span></span></span></span>
         </a>
 
@@ -13,7 +13,7 @@
             </button>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="{{ route('home') }}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="contries.html" class="nav-link">Trips</a>

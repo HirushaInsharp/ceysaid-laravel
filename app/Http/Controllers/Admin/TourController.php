@@ -139,9 +139,16 @@ class TourController extends Controller
                 'description' => $request->description,
                 'main_destinations' => $request->main_destinations,
                 'days' => $request->days,
-                'country_id' => $request->country_id
+                'country_id' => $request->country_id,
+                'min_age' => $request->min_age,
+                'max_ppl' => $request->max_ppl,
+                'start_place' => $request->start_place,
+                'start_date' => $request->start_date,
+                'end_place' => $request->end_place,
+                'end_date' => $request->end_date
             ]);
             $this->tourDays($tour, $request->days);
+
             Session::flash('success', "Tour :: ". $tour->name . " info has been updated successfully.");
         } elseif ($request->get('edit_type') == 'context') {
             $tour->update([
@@ -219,7 +226,7 @@ class TourController extends Controller
             }
 
             Session::flash('success', "Tour :: " . $tour->name . " days data has been updated successfully.");
-        } else if ($request->get('edit_type') == 'price') {
+        } elseif ($request->get('edit_type') == 'price') {
             $amounts = $request->amount;
             $priceIds = $request->price_id;
 
@@ -234,10 +241,10 @@ class TourController extends Controller
                 $tour->tourPrice()->save($tourPrice);
             }
             Session::flash('success', "Tour :: " . $tour->name . " price data has been updated successfully.");
-        } else if ($request->get('edit_type') == 'include') {
+        } elseif ($request->get('edit_type') == 'include') {
             $this->tourData($request, $tour, TourDataGroup::PRICE_INCLUDE);
             Session::flash('success', "Tour :: " . $tour->name . "  tour include data has been updated successfully.");
-        } else if ($request->get('edit_type') == 'exclude') {
+        } elseif ($request->get('edit_type') == 'exclude') {
             $this->tourData($request, $tour, TourDataGroup::PRICE_EXCLUDE);
             Session::flash('success', "Tour :: " . $tour->name . "  tour exclude data has been updated successfully.");
         }
@@ -255,7 +262,6 @@ class TourController extends Controller
         TourDataGroup::whereNotIn('id', $groupIds)->where('section', $section)->delete();
 
         for ($i = 0; $i < count($groups); $i++) {
-
             if (isset($groupIds[$i])) {
                 $tourDataGroup = TourDataGroup::find($groupIds[$i]);
             } else {

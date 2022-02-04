@@ -18,4 +18,16 @@ class Controller extends BaseController
     public function setBreadcrumbs($breadcrumbs) {
         view()->share('breadcrumbs', $breadcrumbs);
     }
+
+    public function setPageTitle($title, $name) {
+        if ($title) {
+            view()->share('page_title', $title);
+        } else {
+            view()->share('page_title', $name);
+        }
+    }
+
+    public function setPageDescription($description) {
+        view()->share('page_description', $description);
+    }
 }
