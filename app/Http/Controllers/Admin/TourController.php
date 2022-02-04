@@ -259,7 +259,6 @@ class TourController extends Controller
         $groupIds = $request->get('group_ids') ?? [];
         $groupId = 1;
 
-
         $deleteGroupIds = TourDataGroup::whereNotIn('id', $groupIds)
                                         ->where('tour_id', $tour->id)
                                         ->where('section', $section)
@@ -289,6 +288,7 @@ class TourController extends Controller
                 $tourData->tour_data_group_id = $tourDataGroup->id;
                 $tourData->save();
             }
+
             TourData::whereNotIn('id', $itemIds)->where('tour_data_group_id', $tourDataGroup->id)->delete();
 
             for ($j = $x; $j < count($items); $j++) {
