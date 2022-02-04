@@ -9,85 +9,33 @@
         </div>
 
         <div class="featured-row">
-            <div class="featured-item my-2 shadow">
-                <a href="gallery.html">
-                    <img src="{{ asset('themes/images/srilanka/shutterstock_232546966.jpg') }}" alt="featured place">
-                    <div class="featured-item-content">
-                        <span>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Sri Lanka
-                        </span>
-                        <div>
-                            <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
+
+            @foreach ($contries as $contry)
+                <div class="featured-item my-2 shadow">
+                    <a href="{{ route('tours',['country_slug' => $contry->slug])}}">
+                        @if (count($contry->CountryMedia) == 0 )
+                            <img src="{{ asset('themes/images/srilanka/galle.jpg') }}" alt="featured place">
+                        @else
+                            <img src="{{ asset($contry->CountryMedia[0]->image_path) }}" alt="featured place">
+                        @endif
+                        
+                        <div class="featured-item-content">
+                            <span>
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{$contry->name}}
+                            </span>
+                            <div>
+                                @if ($contry->description == null )
+                                    <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
+                                @else
+                                <p class="text">{{$contry->description}}</p>
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="{{ asset('themes/images/featured-north-bondi-australia.jpg') }}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        North Bondi, Australia
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="{{ asset('themes/images/featured-berlin-germany.jpg') }}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Berlin, Germany
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="{{ asset('themes/images/featured-khwaeng-wat-arun-thailand.jpg') }}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Khwaeng wat arun, thailand
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="{{ asset('themes/images/featured-rome-italy.jpg') }}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Rome, Italy
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="{{ asset('themes/images/featured-fuvahmulah-maldives.jpg') }}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        fuvahmulah, maldives
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
+                    </a>
+                </div>     
+            @endforeach
+                   
         </div>
     </div>
 </section>

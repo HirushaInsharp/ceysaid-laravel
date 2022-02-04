@@ -26,65 +26,23 @@
         </div>
 
         <div class="blog-row">
-            <div class="blog-item my-2 shadow">
-                <div class="blog-item-top">
-                    <img src="{{ asset('themes/images/srilanka/sigiriya.jpg') }}" alt="blog">
-                    <span class="blog-date">05 Days</span>
+            @foreach ($tours as $tour)
+                <div class="blog-item my-2 shadow">
+                    <div class="blog-item-top">
+                        <img src="{{ asset('themes/images/srilanka/sigiriya.jpg') }}" alt="blog">
+                        <span class="blog-date">05 Days</span>
+                    </div>
+                    <div class="blog-item-bottom">
+                        <span>{{ $tour->main_destinations}}</span>
+                        <a href="{{ route('tour',['country_slug' => $contry, 'tour_slug'=>$tour->slug])}}">{{$tour->name}}</a>
+                        @if ($tour->description == null )
+                            <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
+                        @else
+                        <p class="text">{{$tour->description}}</p>
+                        @endif
+                    </div>
                 </div>
-                <div class="blog-item-bottom">
-                    <span>Sigiriya | minneriya</span>
-                    <a href="tour.html">Tour of Sigiriya and Minneriya</a>
-                    <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem nulla harum accusantium tempora dicta quas quod id, repellat temporibus illo libero explicabo laboriosam.</p>
-                </div>
-            </div>
-
-            <div class="blog-item my-2 shadow">
-                <div class="blog-item-top">
-                    <img src="{{ asset('themes/images/srilanka/sigiriya.jpg') }}" alt="blog">
-                    <span class="blog-date">07 Days</span>
-                </div>
-                <div class="blog-item-bottom">
-                    <span>Sigiriya | Dhambulla</span>
-                    <a href="#">Lorem, ipsum dolor sit amet consectetur adipisicing elit?</a>
-                    <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem nulla harum accusantium tempora dicta quas quod id, repellat temporibus illo libero explicabo laboriosam.</p>
-                </div>
-            </div>
-
-            <div class="blog-item my-2 shadow">
-                <div class="blog-item-top">
-                    <img src="{{ asset('themes/images/srilanka/kandy.jpg') }}" alt="blog">
-                    <span class="blog-date">07 Days</span>
-                </div>
-                <div class="blog-item-bottom">
-                    <span>Kandy</span>
-                    <a href="#">Lorem, ipsum dolor sit amet consectetur adipisicing elit?</a>
-                    <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem nulla harum accusantium tempora dicta quas quod id, repellat temporibus illo libero explicabo laboriosam.</p>
-                </div>
-            </div>
-
-            <div class="blog-item my-2 shadow">
-                <div class="blog-item-top">
-                    <img src="{{ asset('themes/images/srilanka/hikkaduwa.jpg') }}" alt="blog">
-                    <span class="blog-date">04 Days</span>
-                </div>
-                <div class="blog-item-bottom">
-                    <span>Hikkaduwa</span>
-                    <a href="#">Lorem, ipsum dolor sit amet consectetur adipisicing elit?</a>
-                    <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem nulla harum accusantium tempora dicta quas quod id, repellat temporibus illo libero explicabo laboriosam.</p>
-                </div>
-            </div>
-
-            <div class="blog-item my-2 shadow">
-                <div class="blog-item-top">
-                    <img src="{{ asset('themes/images/srilanka/galle.jpg') }}" alt="blog">
-                    <span class="blog-date">05 Days</span>
-                </div>
-                <div class="blog-item-bottom">
-                    <span>Galle</span>
-                    <a href="#">Lorem, ipsum dolor sit amet consectetur adipisicing elit?</a>
-                    <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem nulla harum accusantium tempora dicta quas quod id, repellat temporibus illo libero explicabo laboriosam.</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
