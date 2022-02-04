@@ -51,6 +51,7 @@
             </div>
             @php
                 $tourGroups = $tour->getTourInclude();
+                $class = 'fa fa-check icon-color';
             @endphp
             @include('themes.website.partials.include-exclude');
         </div>
@@ -64,6 +65,7 @@
             </div>
             @php
                 $tourGroups = $tour->getTourExclude();
+                $class = 'fa fa-times icon-color-red';
             @endphp
             @include('themes.website.partials.include-exclude');
         </div>
@@ -212,7 +214,7 @@
 
                                     <textarea rows="4" cols="50"
                                         placeholder="">Your Enquiry
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </textarea>
                                 </div>
 
 
