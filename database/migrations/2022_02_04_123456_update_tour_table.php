@@ -18,9 +18,9 @@ class UpdateTourTable extends Migration
             $table->integer('min_age')->default(12)->after('country_id');
             $table->integer('max_ppl')->default(20)->after('min_age');
             $table->string('start_place', 100)->nullable()->after('max_ppl');
-            $table->date('start_date')->nullable()->after('start_at');
+            $table->date('start_date')->nullable()->after('start_place');
             $table->string('end_place', 100)->nullable()->after('start_date');
-            $table->date('end_date')->nullable()->after('end_at');
+            $table->date('end_date')->nullable()->after('end_place');
         });
     }
 

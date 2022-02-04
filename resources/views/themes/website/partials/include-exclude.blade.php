@@ -15,7 +15,7 @@ if ($remaing == 1) {
         <div class="@if ($loop->remaining < $remaing) {{ $remaingClass }} @else {{ $default }} @endif" style="text-align: center">
             <span class="sm-title">{{ $group->name }}</span>
             @foreach ($group->tourData as $item)
-                <p><i class="fa fa-check icon-color" aria-hidden="true"></i>
+                <p><i class="{{ $class }}" aria-hidden="true"></i>
                     {{ $item->item }}</p>
             @endforeach
         </div>
