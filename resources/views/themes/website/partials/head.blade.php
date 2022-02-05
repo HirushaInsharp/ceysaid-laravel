@@ -3,6 +3,7 @@
 <title>Ceysaid</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- font awesome cdn -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
@@ -17,4 +18,5 @@
 <link rel="stylesheet" href="{{ asset('themes/css/tour.css') }}">
 <link rel="stylesheet" href="{{ asset('themes/css/responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('themes/css/summernote.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/css/jquery.toast.min.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

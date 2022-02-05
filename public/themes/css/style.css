@@ -3,6 +3,7 @@
     --light-grey: #f7f7f7;
     --dark: #0e1010;
     --trans: all 0.3s ease-in-out;
+    --orange: #f99c42
 }
 .navbar{
     position: fixed;
@@ -447,7 +448,7 @@ header{
     z-index: 5;
     width: 70px;
     height: 70px;
-    background-color: var(--green);
+    background-color: var(--orange);
     color: #fff;
     border: none;
     border-radius: 50%;
@@ -473,7 +474,7 @@ footer{
 footer::before{
     content: "";
     position: absolute;
-    background-color: var(--green);
+    background-color: var(--orange);
     height: 4px;
     top: 0;
     left: 0;
@@ -495,7 +496,7 @@ footer .site-brand{
     transition: var(--trans);
 }
 .footer-item a:hover{
-    color: var(--green);
+    color: var(--orange);
 }
 .footer-item ul{
     padding: 0;
@@ -830,13 +831,20 @@ header.header-sm{
     color: #000;
     display: block;
     margin: 1.6rem auto;
+    padding: 0 15px 0 15px;
+    height: 40px;
+}
+
+.contact-form textarea {
+    height: 150px !important;
+    padding-top: 10px !important;
 }
 .contact-form .btn{
     display: block;
     margin: auto;
 }
 .contact-icon{
-    background-color: var(--green);
+    background-color: var(--orange);
     color: #fff;
     width: 60px;
     height: 60px;

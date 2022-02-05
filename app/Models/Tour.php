@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\DataTableFilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Tour extends Model
 {
@@ -98,5 +99,12 @@ class Tour extends Model
     public function getTourExclude()
     {
         return $this->tourDataGroup->where('section', TourDataGroup::PRICE_EXCLUDE);
+    }
+
+    public function getTourMainDestination()
+    {
+        $destination = str_replace(',', '|', $this->main_destinations);
+
+        return $destination;
     }
 }

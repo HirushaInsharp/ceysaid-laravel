@@ -29,7 +29,7 @@ class UpdatePageRequest extends FormRequest
                 'description' => 'nullable|string',
                 'title' => 'nullable|string|max:150'
             ];
-        } else if ($this->request->get('edit_type') == 'seo') {
+        } elseif ($this->request->get('edit_type') == 'seo') {
             return [
                 'meta_keywords' => 'required|string',
                 'meta_description' => 'required|string'

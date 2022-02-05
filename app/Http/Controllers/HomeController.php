@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubscribedRequest;
 use App\Models\Country;
 use App\Models\Page;
+use App\Models\Subscribe;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-
         $countries = Country::where('status', Country::STATUS_ACTIVE)->limit(9)->get();
 
         $page = Page::where('slug', 'home')->first();
@@ -20,18 +22,33 @@ class HomeController extends Controller
         return view('themes.website.index', compact('countries', 'page'));
     }
 
-    public function showCountries()
+    public function aboutUs()
     {
-        return view('themes.website.countries');
+        $page = Page::where('slug', 'about-us')->first();
+
+        $this->setPageTitle($page->title, $page->name);
+        $this->setPageDescription($page->description);
+
+        $testimonials = Testimonial::where('status', Testimonial::STATUS_ACTIVE)->get();
+
+        return view('themes.website.about-us', compact('page', 'testimonials'));
     }
 
-    public function showTours()
+    public function contactUs()
     {
-        return view('themes.website.tours');
+        $page = Page::where('slug', 'contact-us')->first();
+
+        $this->setPageTitle($page->title, $page->name);
+        $this->setPageDescription($page->description);
+        return view('themes.website.contact-us');
     }
 
-    public function showTour()
+    public function subscribe(SubscribedRequest $request)
     {
-        return view('themes.website.tour');
+        $subscribe = new Subscribe();
+        $subscribe->email = $request->email;
+        $subscribe->save();
+
+        return json_encode(['success' => "Thank you for subscribe us"]);
     }
 }
