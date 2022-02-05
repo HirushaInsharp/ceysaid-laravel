@@ -39,8 +39,11 @@ class CountryController extends Controller
             $tours = Tour::where('country_id', $country->id)->where('status', Tour::STATUS_ACTIVE);
 
             if ($request->term) {
-                $tours = $tours->where('name', 'like', '%' .$request->term . '%')
-                                ->orWhere('main_destinations', 'like', '%' .$request->term . '%');
+                $term = $request->term;
+                $tours = $tours->where(function ($query) use ($term) {
+                    return $query->where('name', 'like', '%' . $term . '%')
+                    ->orWhere('main_destinations', 'like', '%' . $term . '%');
+                });
             }
             $tours = $tours->get();
 
