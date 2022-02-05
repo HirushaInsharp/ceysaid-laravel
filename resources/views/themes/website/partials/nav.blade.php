@@ -16,13 +16,16 @@
                     <a href="{{ route('home') }}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="contries.html" class="nav-link">Trips</a>
+                    <a href="{{ route('countries') }}" class="nav-link">Countries</a>
                 </li>
                 <li class="nav-item">
-                    <a href="about.html" class="nav-link">About</a>
+                    <a href="{{ route('tours') }}" class="nav-link">Tours</a>
                 </li>
                 <li class="nav-item">
-                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="{{ route('about-us') }}" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('contact-us') }}" class="nav-link">Contact</a>
                 </li>
             </ul>
         </div>

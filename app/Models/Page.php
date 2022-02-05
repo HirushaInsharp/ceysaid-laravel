@@ -22,7 +22,8 @@ class Page extends Model
         'description',
         'status',
         'meta_keywords',
-        'meta_description'
+        'meta_description',
+        'context'
     ];
 
     public function setNameAttribute($value)

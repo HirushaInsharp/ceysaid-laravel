@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\UpdatePageRequest;
 use App\Http\Resources\PageResource;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
@@ -114,9 +115,20 @@ class PageController extends Controller
             $page->update([
                 'name' => $request->name,
                 'description' => $request->description,
-                'title' => $request->title
+                'title' => $request->title,
             ]);
+
+            if (Cache::has('company_description')) {
+                Cache::forget('company_description');
+            }
+            Cache::forever('company_description', $request->description);
+
             Session::flash('success', "Page :: " . $page->name . " info has been updated successfully.");
+        } elseif ($request->get('edit_type') == 'context') {
+            $page->update([
+                'context' => json_encode($request->context)
+            ]);
+            Session::flash('success', "Page :: ". $page->name . " context has been updated successfully.");
         } elseif ($request->get('edit_type') == 'seo') {
             $page->update([
                 'meta_keywords' => $request->meta_keywords,

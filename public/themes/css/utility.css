@@ -56,9 +56,9 @@ button, input[type = "submit"]{
     padding: 0.7rem 2.4rem;
     border-radius: 0.2rem;
     font-weight: 600;
-    background-color: var(--green);
+    background-color: var(--orange);
     color: #fff;
-    border: 1px solid var(--green);
+    border: 1px solid var(--orange);
 }
 .btn:hover{
     opacity: 0.9;
@@ -95,9 +95,8 @@ img{
 }
 .sm-title{
     display: block;
-    /* color: #787878; */
-    color: #12baff;
-    font-weight: 300;
+    color: var(--orange);
+    font-weight: 600;
     font-size: 1.2rem;
     padding-bottom: 1rem;
     max-width: 450px;
@@ -111,4 +110,57 @@ img{
 .shadow:hover{
     -webkit-box-shadow: 0px 0px 18px -4px rgba(109, 109, 109, 0.64);
             box-shadow: 0px 0px 18px -4px rgba(109, 109, 109, 0.64);
+}
+
+.search-box{
+    height: 40px;
+    width: 100%;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-color: #f99c42;
+    border-style: solid;
+    outline: none;
+}
+
+.search-box:hover, .search-box:focus{
+    border-color: #f99c42;
+}
+
+.input-wrapper{
+    width: 300px;
+    float: right;
+    margin-right: 65px;
+}
+.input-wrapper:before {
+    font-family: 'FontAwesome';
+    content: '\f002';
+    position: absolute;
+    margin-top: 14px;
+    margin-left: 12px;
+    color: #f99c42;
+}
+
+.close-btn {
+    position: absolute;
+    border: none;
+    display: none !important;
+    width: 15px;
+    height: 15px;
+    line-height: 16px;
+    font-size: 12px;
+    border-radius: 50%;
+    top: -1px;
+    bottom: 0;
+    right: 10px;
+    margin: auto;
+    color: #f99c42;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    transition: .1s;
+}
+
+.show-close-btn{
+    display: block !important;
 }

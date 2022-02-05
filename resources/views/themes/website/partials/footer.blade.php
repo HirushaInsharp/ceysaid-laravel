@@ -4,57 +4,105 @@
             <a href="index.html" class="site-brand">
                 CEY<span>S<span>A<span>I<span>D</span></span></span></span>
             </a>
-            <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptates maiores nam vitae iusto. Placeat rem sint voluptas natus exercitationem autem quod neque, odit laudantium reiciendis ipsa suscipit veritatis voluptate.</p>
+            <p class="text">@php
+                echo $company_description ?? '';
+            @endphp</p>
         </div>
 
         <div class="footer-item">
             <h2>Follow us on: </h2>
             <ul class="social-links">
-                <li>
-                    <a href="#">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fab fa-pinterest"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fab fa-google-plus"></i>
-                    </a>
-                </li>
+
+                @if (cache()->has('setting_facebook'))
+                    <li>
+                        <a href="{{ cache()->get('setting_facebook') }}">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                @endif
+                @if (cache()->has('setting_instagram'))
+                    <li>
+                        <a href="{{ cache()->get('setting_instagram') }}">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                @endif
+                @if (cache()->has('setting_twitter'))
+                    <li>
+                        <a href="{{ cache()->get('setting_twitter') }}">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
 
         <div class="footer-item">
-            <h2>Popular Places:</h2>
+            <h2>Popular Destinations:</h2>
             <ul>
-                <li><a href="#">Thailand</a></li>
-                <li><a href="#">Australia</a></li>
-                <li><a href="#">Maldives</a></li>
-                <li><a href="#">Switzerland</a></li>
-                <li><a href="#">Germany</a></li>
+                @php
+                    $popularDestinations = popular_destination();
+                @endphp
+
+                @foreach ($popularDestinations as $destination)
+                    <li><a href="{{ route('country', [$destination->slug]) }}">{{ $destination->name }}</a></li>
+                @endforeach
             </ul>
         </div>
 
         <div class="subscribe-form footer-item">
             <h2>Subscribe for Newsletter!</h2>
             <form class="flex">
-                <input type="email" placeholder="Enter Email" class="form-control">
-                <input type="submit" class="btn" value="Subscribe">
+                <input type="email" id="subscribe-email" placeholder="Enter Email" class="form-control">
+                <input type="button" class="btn" id="subscribe" value="Subscribe">
             </form>
         </div>
     </div>
 </footer>
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#subscribe').on('click', function() {
+                $.ajax({
+                    url: "{{ route('subscribe') }}",
+                    type: "POST",
+                    data: {
+                        email: $('#subscribe-email').val(),
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'JSON',
+                    success: function(data) {
+                        $.toast({
+                            heading: 'Success',
+                            text: data.success,
+                            showHideTransition: 'slide',
+                            icon: 'success',
+                            position: 'bottom-right',
+                        });
+                    },
+                    error: function(data) {
+                        var errors = data.responseJSON;
+                        errorsHtml = "";
+
+                        $.each(errors.errors, function(key, value) {
+                            errorsHtml += value[0]; //showing only the first error.
+                        });
+
+                        if (!errorsHtml) {
+                            errorsHtml = "There is someting wrong"
+                        };
+
+                        $.toast({
+                            heading: 'Error',
+                            text: errorsHtml,
+                            showHideTransition: 'slide',
+                            icon: 'error',
+                            position: 'bottom-right',
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
