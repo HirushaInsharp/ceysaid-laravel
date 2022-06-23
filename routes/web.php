@@ -28,6 +28,8 @@ Route::get('country/{country_slug}/tour/{tour_slug}', [TourController::class, 's
 
 Route::post('subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 
+Route::post('send-mail', [TourController::class, 'sendEmailTOAdmin'])->name('sendMail');
+
 require __DIR__.'/auth.php';
 
 require __DIR__.'/admin.php';

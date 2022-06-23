@@ -36,7 +36,7 @@
                 @endif
             </ul>
         </div>
-
+{{-- 
         <div class="footer-item">
             <h2>Popular Destinations:</h2>
             <ul>
@@ -48,7 +48,7 @@
                     <li><a href="{{ route('country', [$destination->slug]) }}">{{ $destination->name }}</a></li>
                 @endforeach
             </ul>
-        </div>
+        </div> --}}
 
         <div class="subscribe-form footer-item">
             <h2>Subscribe for Newsletter!</h2>

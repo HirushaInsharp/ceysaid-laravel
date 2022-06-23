@@ -19,4 +19,5 @@
 <link rel="stylesheet" href="{{ asset('themes/css/responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('themes/css/summernote.min.css') }}">
 <link rel="stylesheet" href="{{ asset('themes/css/jquery.toast.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/css/gijgo.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

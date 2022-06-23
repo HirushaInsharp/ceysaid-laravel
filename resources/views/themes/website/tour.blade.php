@@ -3,6 +3,39 @@
 
     @include('themes.website.partials.tour-slider')
     <!-- header -->
+    <div class="where_togo_area" id="where_togo_area" >
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3">
+                    <div class="form_area">
+                        <h3>Book a tour </h3>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    
+                    <div class="search_wrap">
+                        <form class="search_form" action="/send-mail" method="POST">
+                            @CSRF
+                            <div class="input_field">
+                                <input type="date" value="2022-05-04" name="tourDate" id="datepicker" placeholder="Date">
+                            </div>
+                            <div class="input_field">
+                                <input type="text" placeholder="Name" name="name">
+                            </div>
+                            <div class="input_field">
+                                <input type="text" placeholder="Email" name="email">
+                            </div>
+                            <input type="text" placeholder="Name" hidden name="tour_name" value="{{$tour->name}}">
+                            <div class="search_btn">
+                                <button class="boxed-btn4 btn" type="submit" >Enquiry</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- about section -->
     <section id="overview" class="py-4">
         <div class="container">
@@ -180,7 +213,7 @@
                         <div id="login">
                             <h1>Need A tour?<br />Book now!</h1>
 
-                            <form action="/" method="post">
+                            {{-- <form action="/" method="post"> --}}
                                 <div class="field-wrap">
                                     <label id="label_userEmail"><i class="fa fa-calendar"
                                             aria-hidden="true"></i></i></label>
@@ -193,13 +226,13 @@
                                 </div>
 
                                 <button class="btn" style="    margin-left: 75%;" />Process</button>
-                            </form>
+                            
                         </div>
 
                         <div id="signup">
                             <h1>Do you have a Enquiry<br />Let us Know!</h1>
 
-                            <form method="post">
+                            {{-- <form method="post"> --}}
                                 <div class="field-wrap">
                                     <label id="label_signupNickname">Your Name</label>
                                     <input type="text" name="signupNickname" id="signupNickname" autocomplete="off" />
@@ -220,7 +253,7 @@
 
                                 <button type="submit" class="btn" style="    margin-left: 75%;" />Submit
                                 Enquiry</button>
-                            </form>
+                            {{-- </form> --}}
                         </div>
                     </div>
                 </div>
@@ -266,8 +299,14 @@
 
                     if (y > 420) {
                         $('.menu').css('z-index', 999999);
+                        //
+                        $('#where_togo_area').addClass('whete_to_go_area_fixed');
+                    
+                        
                     } else {
                         $('.menu').css('z-index', 1);
+                        $('#where_togo_area').removeClass('whete_to_go_area_fixed');
+                        
                     }
 
                     var scrollPos = $(document).scrollTop() + 40;

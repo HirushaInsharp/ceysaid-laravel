@@ -38,4 +38,21 @@ class TourController extends Controller
 
         return view('themes.website.tour', compact('country', 'tour'));
     }
+
+    public function sendEmailTOAdmin(Request $request)
+    {
+        $month = $request->tourDate;
+        $details = [
+            'title' => $request->tour_name,
+            'name' => $request->name,
+            'email' => $request->email,
+            'month' => $request->$month
+        ];
+       
+        \Mail::to('hirusharandunu11@gmail.com')->send(new \App\Mail\TourSubscriptionMail($details));
+       
+        
+
+        return redirect()->back();
+    }
 }
