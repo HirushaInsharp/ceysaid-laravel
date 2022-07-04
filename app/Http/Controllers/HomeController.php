@@ -7,19 +7,23 @@ use App\Models\Country;
 use App\Models\Page;
 use App\Models\Subscribe;
 use App\Models\Testimonial;
+use App\Models\Tour;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $countries = Country::where('status', Country::STATUS_ACTIVE)->limit(9)->get();
-
+        $countries = Country::with('CountryMedia')->with('tours')->where('status', Country::STATUS_ACTIVE)->limit(4)->get();
         $page = Page::where('slug', 'home')->first();
 
+        $tours = Tour::with('tourMedia')->with('tourPrice')->with('tourDays')->where('status', Tour::STATUS_ACTIVE)->limit(4)->get();
+
+        //dd( $tours[0]);
+       // dd(isset($tours[1]->tourPrice[0]));
         $this->setPageTitle($page->title, $page->name);
         $this->setPageDescription($page->description);
-        return view('themes.website.index', compact('countries', 'page'));
+        return view('themes.website.index', compact('countries', 'page','tours'));
     }
 
     public function aboutUs()
