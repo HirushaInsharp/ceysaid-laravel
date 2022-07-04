@@ -12,15 +12,13 @@
     <!-- navbar  -->
     @include('themes.website.partials.nav')
     <!-- end of navbar  -->
-    @if ($currentRouteName == 'tour')
+    <!-- @if ($currentRouteName == 'tour')
         @include('themes.website.partials.second-nav')
-        <!-- social media -->
+
         @include('themes.website.partials.social-media')
-        <!-- end of social media -->
     @else
-        <!-- header -->
         @include('themes.website.partials.header')
-    @endif
+    @endif -->
     <!-- end of header -->
     @yield('content')
     <!-- footer -->
@@ -31,7 +29,7 @@
     @include('themes.website.partials.foot')
     <!-- end of foot -->
 
-    @stack('js')
+    <!-- @stack('js') -->
 </body>
 
 </html>

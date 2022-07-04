@@ -1,108 +1,59 @@
-<footer class="py-4">
-    <div class="container footer-row">
-        <div class="footer-item">
-            <a href="index.html" class="site-brand">
-                CEY<span>S<span>A<span>I<span>D</span></span></span></span>
-            </a>
-            <p class="text">@php
-                echo $company_description ?? '';
-            @endphp</p>
-        </div>
-
-        <div class="footer-item">
-            <h2>Follow us on: </h2>
-            <ul class="social-links">
-
-                @if (cache()->has('setting_facebook'))
-                    <li>
-                        <a href="{{ cache()->get('setting_facebook') }}">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </li>
-                @endif
-                @if (cache()->has('setting_instagram'))
-                    <li>
-                        <a href="{{ cache()->get('setting_instagram') }}">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </li>
-                @endif
-                @if (cache()->has('setting_twitter'))
-                    <li>
-                        <a href="{{ cache()->get('setting_twitter') }}">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </li>
-                @endif
+<footer class="ftco-footer bg-bottom" style="background-image:url(images/xfooter-bg.jpg.pagespeed.ic.FQkB2IoJHu.jpg)">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md">
+          <div class="ftco-footer-widget mb-4">
+            <h2 class="ftco-heading-2">Vacation</h2>
+            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the
+              blind texts.</p>
+            <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+              <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+              <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+              <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
             </ul>
+          </div>
         </div>
-{{-- 
-        <div class="footer-item">
-            <h2>Popular Destinations:</h2>
-            <ul>
-                @php
-                    $popularDestinations = popular_destination();
-                @endphp
-
-                @foreach ($popularDestinations as $destination)
-                    <li><a href="{{ route('country', [$destination->slug]) }}">{{ $destination->name }}</a></li>
-                @endforeach
+        <div class="col-md">
+          <div class="ftco-footer-widget mb-4 ml-md-5">
+            <h2 class="ftco-heading-2">Infromation</h2>
+            <ul class="list-unstyled">
+              <li><a href="#" class="py-2 d-block">Online Enquiry</a></li>
+              <li><a href="#" class="py-2 d-block">General Enquiries</a></li>
+              <li><a href="#" class="py-2 d-block">Booking Conditions</a></li>
+              <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+              <li><a href="#" class="py-2 d-block">Refund Policy</a></li>
+              <li><a href="#" class="py-2 d-block">Call Us</a></li>
             </ul>
-        </div> --}}
-
-        <div class="subscribe-form footer-item">
-            <h2>Subscribe for Newsletter!</h2>
-            <form class="flex">
-                <input type="email" id="subscribe-email" placeholder="Enter Email" class="form-control">
-                <input type="button" class="btn" id="subscribe" value="Subscribe">
-            </form>
+          </div>
         </div>
+        <div class="col-md">
+          <div class="ftco-footer-widget mb-4">
+            <h2 class="ftco-heading-2">Experience</h2>
+            <ul class="list-unstyled">
+              <li><a href="#" class="py-2 d-block">Adventure</a></li>
+              <li><a href="#" class="py-2 d-block">Hotel and Restaurant</a></li>
+              <li><a href="#" class="py-2 d-block">Beach</a></li>
+              <li><a href="#" class="py-2 d-block">Nature</a></li>
+              <li><a href="#" class="py-2 d-block">Camping</a></li>
+              <li><a href="#" class="py-2 d-block">Party</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="ftco-footer-widget mb-4">
+            <h2 class="ftco-heading-2">Have a Questions?</h2>
+            <div class="block-23 mb-3">
+              <ul>
+                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San
+                    Francisco, California, USA</span></li>
+                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+97 000 0000 000</span></a></li>
+                <li><a href="#"><span class="icon icon-envelope"></span><span class="text"><span class="__cf_email__"
+                        data-cfemail="83eaede5ecc3faecf6f1e7eceee2eaedade0ecee">[email&nbsp;protected]</span></span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</footer>
-
-@push('js')
-    <script>
-        $(document).ready(function() {
-            $('#subscribe').on('click', function() {
-                $.ajax({
-                    url: "{{ route('subscribe') }}",
-                    type: "POST",
-                    data: {
-                        email: $('#subscribe-email').val(),
-                        _token: $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'JSON',
-                    success: function(data) {
-                        $.toast({
-                            heading: 'Success',
-                            text: data.success,
-                            showHideTransition: 'slide',
-                            icon: 'success',
-                            position: 'bottom-right',
-                        });
-                    },
-                    error: function(data) {
-                        var errors = data.responseJSON;
-                        errorsHtml = "";
-
-                        $.each(errors.errors, function(key, value) {
-                            errorsHtml += value[0]; //showing only the first error.
-                        });
-
-                        if (!errorsHtml) {
-                            errorsHtml = "There is someting wrong"
-                        };
-
-                        $.toast({
-                            heading: 'Error',
-                            text: errorsHtml,
-                            showHideTransition: 'slide',
-                            icon: 'error',
-                            position: 'bottom-right',
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-@endpush
+  </footer>

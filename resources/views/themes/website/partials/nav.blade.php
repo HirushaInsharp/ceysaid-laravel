@@ -1,33 +1,19 @@
-<nav class="navbar">
-    <div class="container flex">
-        <a href="{{ route('home') }}" class="site-brand">
-            CEY<span>S<span>A<span>I<span>D</span></span></span></span>
-        </a>
-
-        <button type="button" id="navbar-show-btn" class="flex">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div id="navbar-collapse">
-            <button type="button" id="navbar-close-btn" class="flex">
-                <i class="fas fa-times"></i>
-            </button>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('countries') }}" class="nav-link">Countries</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('tours') }}" class="nav-link">Tours</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('about-us') }}" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('contact-us') }}" class="nav-link">Contact</a>
-                </li>
-            </ul>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Ceysaid</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+        aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="single-tour.html" class="nav-link">Tour</a></li>
+          <li class="nav-item"><a href="destination.html" class="nav-link">Destination</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          <li class="nav-item cta"><a href="#" class="nav-link">Book Now</a></li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
