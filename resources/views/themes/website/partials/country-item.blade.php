@@ -15,9 +15,9 @@
               }
                 
             @endphp
-          <div class="col-md-3 ftco-animate">
+          <div class="col-md-3 ftco-animate mb-4">
             <div class="project-destination">
-              <a href="#" class="img" style="background-image:url({{ $featuredImageUrl }})">
+              <a href="{{route('country', ['country_slug'=>$country->slug])}}" class="img" style="background-image:url({{ $featuredImageUrl }})">
                 <div class="text">
                   <h3>{{$country->name}}</h3>
                   <span>{{count($country->tours)}} Tours</span>
