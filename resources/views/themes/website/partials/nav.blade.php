@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">Ceysaid</a>
+      <a class="navbar-brand" href="{{route('home')}}">Ceysaid</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
         aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
@@ -12,7 +12,9 @@
           <li class="nav-item @if($currentRouteName == 'countries')  active @endif"><a href="{{route('countries')}}" class="nav-link">Destination</a></li>
           <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
           <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-          <li class="nav-item cta @if($currentRouteName == 'tour')  active @endif"><a href="#" class="nav-link">Book Now</a></li>
+          @if($currentRouteName == 'tour') 
+            <li class="nav-item cta "><a href="#" class="nav-link">Book Now</a></li>
+          @endif
         </ul>
       </div>
     </div>

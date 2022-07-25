@@ -3,10 +3,10 @@
         @foreach($tours as $tour)
 
             @php
-                if(isset($tour->tourMedia[0]))
+                if(isset($tour->tourMedia[count($tour->tourMedia)-1]))
                 {
-                    if (Storage::disk('public')->exists($tour->tourMedia[0]->image_path)) {
-                        $featuredImageUrl = asset('storage/' . $tour->tourMedia[0]->image_path);
+                    if (Storage::disk('public')->exists($tour->tourMedia[count($tour->tourMedia)-1]->image_path)) {
+                        $featuredImageUrl = asset('storage/' . $tour->tourMedia[count($tour->tourMedia)-1]->image_path);
                     } else {
                         $featuredImageUrl = asset('images/xdestination-1.jpg.pagespeed.ic.TPV5k5yhjl.webp');
                     }
@@ -17,7 +17,7 @@
             @endphp
         <div class="col-md-4 ftco-animate">
             <div class="project-wrap">
-                <a href="#" class="img" style="background-image:url({{ $featuredImageUrl }})"></a>
+                <a href="{{route('tour', ['country_slug'=>$tour->country->slug, 'tour_slug'=>$tour->slug])}}" class="img" style="background-image:url({{ $featuredImageUrl }})"></a>
                 <div class="text p-4">
                     @if (isset($tour->tourPrice[0]))      
                         <span class="price">${{$tour->tourPrice[0]->amount}}/person</span> 

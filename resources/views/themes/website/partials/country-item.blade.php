@@ -3,10 +3,10 @@
         @foreach($countries as $country)
 
             @php
-              if(isset($country->CountryMedia[0]))
+              if(isset($country->CountryMedia[count($country->CountryMedia)-1]))
               {
-                if (Storage::disk('public')->exists($country->CountryMedia[0]->image_path)) {
-                    $featuredImageUrl = asset('storage/' . $country->CountryMedia[0]->image_path);
+                if (Storage::disk('public')->exists($country->CountryMedia[count($country->CountryMedia)-1]->image_path)) {
+                    $featuredImageUrl = asset('storage/' . $country->CountryMedia[count($country->CountryMedia)-1]->image_path);
                 } else {
                     $featuredImageUrl = asset('themes/images/deafult-image.jpg');
                 }

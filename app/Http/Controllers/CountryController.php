@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\CountryMedia;
 use App\Models\Page;
 use App\Models\Tour;
+use App\Models\Setting;
 
 class CountryController extends Controller
 {
@@ -25,18 +26,20 @@ class CountryController extends Controller
 
         $page = Page::where('slug', 'countries')->first();
         $countries = Country::with('CountryMedia')->with('tours')->where('status', Country::STATUS_ACTIVE)->get();
-
+        $settings= Setting::where('value' ,'!=', '')->get();
 
         $this->setPageTitle($page->title, $page->name);
         $this->setPageDescription($page->description);
 
-        return view('themes.website.countries', compact('countries', 'page'));
+        return view('themes.website.countries', compact('countries', 'page', 'settings'));
     }
 
     public function show(Request $request, $country_slug)
     {
         $country = Country::with('CountryMedia')->with('tours')->where('slug', $country_slug)->where('status', Country::STATUS_ACTIVE)->firstOrFail();
         $tours = Tour::with('tourMedia')->with('tourPrice')->with('tourDays')->where('status', Tour::STATUS_ACTIVE)->where('country_id',$country->id)->get();
+        $settings= Setting::where('value' ,'!=', '')->get();
+       
         // if ($request->ajax()) {
         //     $tours = Tour::where('country_id', $country->id)->where('status', Tour::STATUS_ACTIVE);
 
@@ -55,6 +58,6 @@ class CountryController extends Controller
         $this->setPageTitle(null, $country->name);
         $this->setPageDescription($country->description);
 
-        return view('themes.website.country', compact('country','tours'));
+        return view('themes.website.country', compact('country','tours', 'settings'));
     }
 }

@@ -159,7 +159,7 @@
 							ocean.</p>
 					</div>
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-md-4 justify-content-center counter-wrap ftco-animate">
 						<div class="block-18 text-center mb-4">
 							<div class="text">
@@ -184,7 +184,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

@@ -44,11 +44,10 @@
             <h2 class="ftco-heading-2">Have a Questions?</h2>
             <div class="block-23 mb-3">
               <ul>
-                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San
-                    Francisco, California, USA</span></li>
-                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+97 000 0000 000</span></a></li>
+                <li><span class="icon icon-map-marker"></span><span class="text">#60/10 D Templers Road,Mount Lavinia</span></li>
+                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+94777841580</span></a></li>
                 <li><a href="#"><span class="icon icon-envelope"></span><span class="text"><span class="__cf_email__"
-                        data-cfemail="83eaede5ecc3faecf6f1e7eceee2eaedade0ecee">[email&nbsp;protected]</span></span></a>
+                        data-cfemail="83eaede5ecc3faecf6f1e7eceee2eaedade0ecee">support@ceysaid.com</span></span></a>
                 </li>
               </ul>
             </div>

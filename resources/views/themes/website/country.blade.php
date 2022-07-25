@@ -38,27 +38,27 @@
 					<div class="col-md-4 justify-content-center counter-wrap ftco-animate">
 						<div class="block-18 text-center mb-4">
 							<div class="text">
-								<strong class="number" data-number="300">0</strong>
-								<span>Successful Tours</span>
+								<strong class="number" >Contact</strong>
+								<span>{{$settings[0]->value}}</span>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-4 justify-content-center counter-wrap ftco-animate">
 						<div class="block-18 text-center mb-4">
 							<div class="text">
-								<strong class="number" data-number="24000">0</strong>
-								<span>Happy Tourist</span>
+								<strong class="number">Email</strong>
+								<span>{{$settings[2]->value}}</span>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 justify-content-center counter-wrap ftco-animate">
+					<!-- <div class="col-md-4 justify-content-center counter-wrap ftco-animate">
 						<div class="block-18 text-center mb-4">
 							<div class="text">
 								<strong class="number" data-number="200">0</strong>
 								<span>Place Explored</span>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

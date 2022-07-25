@@ -6,11 +6,12 @@ use App\Models\Tour;
 use App\Models\Country;
 use App\Models\Page;
 use Illuminate\Http\Request;
-
+use App\Models\Setting;
 class TourController extends Controller
 {
     public function index(Request $request)
     {
+        $settings= Setting::where('value' ,'!=', '')->get();
         if ($request->ajax()) {
             $tours = Tour::where('status', Tour::STATUS_ACTIVE);
 
@@ -20,7 +21,7 @@ class TourController extends Controller
             }
             $tours = $tours->get();
 
-            return view('themes.website.partials.tour-item', compact('tours'))->render();
+            return view('themes.website.partials.tour-item', compact('tours','settings'))->render();
         }
 
         $page = Page::where('slug', 'tours')->first();
@@ -34,9 +35,11 @@ class TourController extends Controller
     public function show($country_slug, $tour_slug)
     {
         $country = Country::where('slug', $country_slug)->where('status', Country::STATUS_ACTIVE)->firstOrFail();
-        $tour = Tour::where('country_id', $country->id)->where('slug', $tour_slug)->where('status', Tour::STATUS_ACTIVE)->firstOrFail();
+        $tour = Tour::with('tourMedia')->with('tourDays')->where('country_id', $country->id)->where('slug', $tour_slug)->where('status', Tour::STATUS_ACTIVE)->firstOrFail();
+        //dd($tour->tourMedia);
+        $settings= Setting::where('value' ,'!=', '')->get();
 
-        return view('themes.website.tour', compact('country', 'tour'));
+        return view('themes.website.tour', compact('country', 'tour','settings'));
     }
 
     public function sendEmailTOAdmin(Request $request)
